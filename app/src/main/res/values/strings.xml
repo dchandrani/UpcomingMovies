@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Upcoming Movies</string>
+    <string name="menu_info">Information</string>
+    <string name="label_developed_by">Developed by \nDhruv Chandrani</string>
 </resources>
