@@ -3,6 +3,7 @@ package com.app.upcomingmovies.ui.list
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.app.upcomingmovies.R
 
 class HomeFragment: Fragment() {
@@ -18,7 +19,8 @@ class HomeFragment: Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId ==  R.id.action_info){
-
+            val action = HomeFragmentDirections.actionHomeFragmentToInformationFragment()
+            findNavController().navigate(action)
             return true
         }
         return super.onOptionsItemSelected(item)
