@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 interface ApiInterface {
     @GET("movie/upcoming")
-    fun getMoviesAsync(): Call<MovieResponse>
+    fun getMovies(): Call<MovieResponse>
 
     @GET("movie/{movie_id}")
     fun getMovieDetail(@Path("movie_id") movieId: Long): Call<Movie>

@@ -9,4 +9,13 @@ data class Movie(val id: Long,
                  @SerializedName("poster_path") val posterPath: String,
                  @SerializedName("release_date") val releaseData: String,
                  val adult: Boolean,
-                 val overview: String)
+                 val overview: String){
+    val contentRating: String
+        get() = if (adult) {
+            "(A)"
+        } else {
+            "(U/A)"
+        }
+
+    fun getPoster(): String = "http://image.tmdb.org/t/p/w185/$posterPath"
+}
