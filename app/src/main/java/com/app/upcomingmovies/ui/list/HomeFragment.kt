@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.upcomingmovies.R
@@ -21,6 +22,15 @@ class HomeFragment: Fragment() {
         activity?.findViewById<TextView>(R.id.tvTitle)
     }
     private lateinit var viewModel: MovieListViewModel
+
+    val options = navOptions {
+        anim {
+            enter = R.anim.slide_in_right
+            exit = R.anim.slide_out_left
+            popEnter = R.anim.slide_in_left
+            popExit = R.anim.slide_out_right
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -61,14 +71,14 @@ class HomeFragment: Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId ==  R.id.action_info){
-            val action = HomeFragmentDirections.actionHomeFragmentToInformationFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(item.itemId, null, options)
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun onMovieClicked(movieId: Long) {
-        requireContext().toast("Movie clicked: $movieId")
+    private fun onMovieClicked(movieId: Long, title: String) {
+        val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movieId, title)
+        findNavController().navigate(action, options)
     }
 }

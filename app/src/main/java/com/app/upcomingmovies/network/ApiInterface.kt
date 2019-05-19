@@ -2,6 +2,7 @@ package com.app.upcomingmovies.network
 
 import com.app.upcomingmovies.BuildConfig
 import com.app.upcomingmovies.response.Movie
+import com.app.upcomingmovies.response.MovieImagesResponse
 import com.app.upcomingmovies.response.MovieResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -19,6 +20,9 @@ interface ApiInterface {
 
     @GET("movie/{movie_id}")
     fun getMovieDetail(@Path("movie_id") movieId: Long): Call<Movie>
+
+    @GET("movie/{movie_id}/images")
+    fun getImagesByMovieId(@Path("movie_id") movieId: Long): Call<MovieImagesResponse>
 
     companion object {
         private const val BASE_URL = "https://api.themoviedb.org/3/"

@@ -11,11 +11,22 @@
               tools:layout="@layout/home_fragment">
 
         <action android:id="@+id/action_homeFragment_to_informationFragment"
-                app:destination="@id/informationFragment"/>
+                app:destination="@id/action_info"/>
+
+        <action android:id="@+id/action_homeFragment_to_movieDetailFragment"
+                app:destination="@id/movieDetailFragment"/>
     </fragment>
 
-    <fragment android:id="@+id/informationFragment"
+    <fragment android:id="@+id/action_info"
               android:name="com.app.upcomingmovies.ui.info.InformationFragment"
               android:label="information_fragment"
               tools:layout="@layout/information_fragment"/>
+
+    <fragment android:id="@+id/movieDetailFragment"
+              android:name="com.app.upcomingmovies.ui.detail.MovieDetailFragment"
+              android:label="movie_detail_fragment"
+              tools:layout="@layout/movie_detail_fragment">
+        <argument android:name="id" app:argType="long"/>
+        <argument android:name="titile" app:argType="string" android:defaultValue="Movie Detail"/>
+    </fragment>
 </navigation>

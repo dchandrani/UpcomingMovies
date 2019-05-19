@@ -12,7 +12,7 @@ import com.app.upcomingmovies.util.setImage
 
 class MoviesAdapter(
     private val movies: List<Movie>,
-    private val onMovieClicked: (movieId: Long) -> Unit
+    private val onMovieClicked: (movieId: Long, title: String) -> Unit
 ) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
@@ -23,7 +23,7 @@ class MoviesAdapter(
         holder.bind(movies[position])
 
         holder.itemView.setOnClickListener {
-            onMovieClicked(movies[position].id)
+            onMovieClicked(movies[position].id, movies[position].title)
         }
     }
 
