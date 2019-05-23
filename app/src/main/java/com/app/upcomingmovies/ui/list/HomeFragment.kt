@@ -23,7 +23,7 @@ class HomeFragment: Fragment() {
     }
     private lateinit var viewModel: MovieListViewModel
 
-    val options = navOptions {
+    private val options = navOptions {
         anim {
             enter = R.anim.slide_in_right
             exit = R.anim.slide_out_left
