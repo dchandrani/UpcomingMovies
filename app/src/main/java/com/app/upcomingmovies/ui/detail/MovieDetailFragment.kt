@@ -4,34 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.app.upcomingmovies.R
+import com.app.upcomingmovies.ui.base.BaseFragment
 import com.app.upcomingmovies.util.gone
 import com.app.upcomingmovies.util.toast
 import com.app.upcomingmovies.util.visible
-import com.app.upcomingmovies.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.movie_detail_fragment.*
+import org.koin.android.ext.android.setProperty
+import org.koin.android.viewmodel.ext.android.getViewModel
 
-class MovieDetailFragment: Fragment() {
-    private val tvTitle: TextView? by lazy {
-        activity?.findViewById<TextView?>(R.id.tvTitle)
-    }
-
+class MovieDetailFragment : BaseFragment() {
     private lateinit var viewModel: MovieDetailViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val factory = ViewModelFactory(MovieDetailFragmentArgs.fromBundle(arguments!!).id)
-        viewModel = ViewModelProviders.of(this, factory).get(MovieDetailViewModel::class.java)
         return inflater.inflate(R.layout.movie_detail_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvTitle?.text = MovieDetailFragmentArgs.fromBundle(arguments!!).titile
+        arguments?.run {
+            with(MovieDetailFragmentArgs.fromBundle(this)) {
+                setProperty("id", id)
+                setTitle(titile)
+            }
+        }
+
+        viewModel = getViewModel()
 
         viewModel.error.observe(this, Observer {
             requireContext().toast(it)
@@ -58,5 +58,13 @@ class MovieDetailFragment: Fragment() {
                 tv_overview.text = overview
             }
         })
+    }
+
+    override fun getLayout(): Int = R.id.movieDetailFragment
+
+    override fun getHasOptionsMenu(): Boolean = false
+
+    override fun setTitle(title: String) {
+        tvTitle?.text = title
     }
 }

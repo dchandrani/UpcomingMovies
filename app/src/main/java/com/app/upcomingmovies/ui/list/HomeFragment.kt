@@ -1,46 +1,32 @@
 package com.app.upcomingmovies.ui.list
 
 import android.os.Bundle
-import android.view.*
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.upcomingmovies.R
 import com.app.upcomingmovies.response.Movie
+import com.app.upcomingmovies.ui.base.BaseFragment
 import com.app.upcomingmovies.util.toast
 import kotlinx.android.synthetic.main.home_fragment.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class HomeFragment: Fragment() {
+class HomeFragment : BaseFragment() {
     private val mMovieList = mutableListOf<Movie>()
+
     private val mMoviesAdapter = MoviesAdapter(mMovieList, ::onMovieClicked)
-    private val tvTitle: TextView? by lazy {
-        activity?.findViewById<TextView>(R.id.tvTitle)
-    }
-    private lateinit var viewModel: MovieListViewModel
 
-    private val options = navOptions {
-        anim {
-            enter = R.anim.slide_in_right
-            exit = R.anim.slide_out_left
-            popEnter = R.anim.slide_in_left
-            popExit = R.anim.slide_out_right
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setHasOptionsMenu(true)
-        viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
-        return inflater.inflate(R.layout.home_fragment, container, false)
-    }
+    private val viewModel: MovieListViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tvTitle?.text = getString(R.string.app_name)
+
+        setTitle(getString(R.string.app_name))
 
         rvMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -70,12 +56,20 @@ class HomeFragment: Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId ==  R.id.action_info){
+        if (item?.itemId == R.id.action_info) {
             findNavController().navigate(item.itemId, null, options)
             return true
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun getHasOptionsMenu(): Boolean = true
+
+    override fun setTitle(title: String) {
+        tvTitle?.text = title
+    }
+
+    override fun getLayout(): Int = R.layout.home_fragment
 
     private fun onMovieClicked(movieId: Long, title: String) {
         val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movieId, title)

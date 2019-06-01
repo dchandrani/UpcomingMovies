@@ -1,23 +1,22 @@
 package com.app.upcomingmovies.ui.info
 
 import android.os.Bundle
-import android.view.*
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.view.View
 import com.app.upcomingmovies.R
+import com.app.upcomingmovies.ui.base.BaseFragment
 
-class InformationFragment: Fragment() {
-    private val tvTitle: TextView? by lazy {
-        activity?.findViewById<TextView>(R.id.tvTitle)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.information_fragment, container, false)
-    }
+class InformationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setTitle(getString(R.string.menu_info))
+    }
 
-        tvTitle?.text = getString(R.string.menu_info)
+    override fun getLayout(): Int = R.layout.information_fragment
+
+    override fun getHasOptionsMenu(): Boolean = false
+
+    override fun setTitle(title: String) {
+        tvTitle?.text = title
     }
 }
