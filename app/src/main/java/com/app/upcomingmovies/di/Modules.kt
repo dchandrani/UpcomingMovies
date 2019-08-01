@@ -27,7 +27,7 @@ val networkModule = module {
             .build().create(ApiInterface::class.java)
     }
 
-    factory {
+    single {
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(ApiInterface.REQUEST_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(ApiInterface.REQUEST_TIMEOUT, TimeUnit.SECONDS)

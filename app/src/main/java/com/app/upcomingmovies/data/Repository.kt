@@ -9,7 +9,7 @@ class Repository(private val api: ApiInterface) {
 
     suspend fun getMovies(): Response<List<Movie>> {
         return try {
-            val movies = api.getMoviesAsync().await().results
+            val movies = api.getMoviesAsync().results
             Response.Success(movies)
         } catch (e: Exception) {
             Response.Error(e.message)
@@ -18,7 +18,7 @@ class Repository(private val api: ApiInterface) {
 
     suspend fun getMovieById(id: Long): Response<Movie> {
         return try {
-            val movie = api.getMovieDetailAsync(id).await()
+            val movie = api.getMovieDetailAsync(id)
             Response.Success(movie)
         } catch (e: Exception) {
             Response.Error(e.message)
@@ -27,7 +27,7 @@ class Repository(private val api: ApiInterface) {
 
     suspend fun getImagesByMovieId(id: Long): Response<List<MovieImage>> {
         return try {
-            val movieImages = api.getImagesByMovieIdAsync(id).await()
+            val movieImages = api.getImagesByMovieIdAsync(id)
             Response.Success(movieImages.backdrops)
         } catch (e: Exception) {
             Response.Error(e.message)
