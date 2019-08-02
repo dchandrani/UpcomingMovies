@@ -63,7 +63,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02'
     // koin version
-    def koin_version = '1.0.2'
+    def koin_version = '2.0.0'
     // Koin for Android
     implementation "org.koin:koin-android:$koin_version"
     // or Koin for view model features

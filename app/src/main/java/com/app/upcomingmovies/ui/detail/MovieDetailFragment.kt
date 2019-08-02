@@ -11,7 +11,7 @@ import com.app.upcomingmovies.util.gone
 import com.app.upcomingmovies.util.toast
 import com.app.upcomingmovies.util.visible
 import kotlinx.android.synthetic.main.movie_detail_fragment.*
-import org.koin.android.ext.android.setProperty
+import org.koin.android.ext.android.getKoin
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class MovieDetailFragment : BaseFragment() {
@@ -26,7 +26,7 @@ class MovieDetailFragment : BaseFragment() {
 
         arguments?.run {
             with(MovieDetailFragmentArgs.fromBundle(this)) {
-                setProperty("id", id)
+                getKoin().setProperty("id", id)
                 setTitle(titile)
             }
         }
