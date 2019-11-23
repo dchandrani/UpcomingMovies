@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.upcomingmovies.R
 import com.app.upcomingmovies.response.Movie
 import com.app.upcomingmovies.ui.base.BaseFragment
-import com.app.upcomingmovies.util.toast
+import com.app.upcomingmovies.utils.toast
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -30,7 +30,12 @@ class HomeFragment : BaseFragment() {
 
         rvMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
             adapter = mMoviesAdapter
         }
 

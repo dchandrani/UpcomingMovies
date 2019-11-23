@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.app.upcomingmovies.R
 import com.app.upcomingmovies.response.Movie
-import com.app.upcomingmovies.util.inflate
-import com.app.upcomingmovies.util.setImage
+import com.app.upcomingmovies.utils.inflate
 
 class MoviesAdapter(
     private val movies: List<Movie>,
@@ -37,7 +37,7 @@ class MoviesAdapter(
 
         fun bind(movie: Movie) {
             movieName.text = movie.title
-            posterImage.setImage(movie.getPoster())
+            posterImage.load(movie.getPoster())
             releaseDate.text = movie.releaseData
             contentRating.text = movie.contentRating
         }

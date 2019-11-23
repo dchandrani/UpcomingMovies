@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.app.upcomingmovies.R
 import com.app.upcomingmovies.ui.base.BaseFragment
-import com.app.upcomingmovies.util.gone
-import com.app.upcomingmovies.util.toast
-import com.app.upcomingmovies.util.visible
+import com.app.upcomingmovies.utils.gone
+import com.app.upcomingmovies.utils.toast
+import com.app.upcomingmovies.utils.visible
 import kotlinx.android.synthetic.main.movie_detail_fragment.*
 import org.koin.android.ext.android.getKoin
 import org.koin.android.viewmodel.ext.android.getViewModel
@@ -17,7 +17,11 @@ import org.koin.android.viewmodel.ext.android.getViewModel
 class MovieDetailFragment : BaseFragment() {
     private lateinit var viewModel: MovieDetailViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.movie_detail_fragment, container, false)
     }
 

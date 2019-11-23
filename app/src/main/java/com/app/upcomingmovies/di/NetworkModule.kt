@@ -3,13 +3,10 @@ package com.app.upcomingmovies.di
 import com.app.upcomingmovies.BuildConfig
 import com.app.upcomingmovies.data.Repository
 import com.app.upcomingmovies.network.ApiInterface
-import com.app.upcomingmovies.ui.detail.MovieDetailViewModel
-import com.app.upcomingmovies.ui.list.MovieListViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -43,16 +40,11 @@ val networkModule = module {
 
         val authInterceptor = Interceptor { chain ->
             val request = chain.request()
-            val httpURL = request.url().newBuilder().addQueryParameter("api_key", BuildConfig.ApiKey).build()
+            val httpURL =
+                request.url().newBuilder().addQueryParameter("api_key", BuildConfig.ApiKey).build()
             chain.proceed(request.newBuilder().url(httpURL).build())
         }
 
         okHttpClient.addInterceptor(authInterceptor).build()
     }
-}
-
-val viewModelModule = module {
-    viewModel { MovieListViewModel(get()) }
-
-    viewModel { MovieDetailViewModel(getProperty("id"), get()) }
 }
