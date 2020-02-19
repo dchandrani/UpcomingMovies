@@ -40,11 +40,21 @@ val networkModule = module {
 
         val authInterceptor = Interceptor { chain ->
             val request = chain.request()
-            val httpURL =
-                request.url().newBuilder().addQueryParameter("api_key", BuildConfig.ApiKey).build()
-            chain.proceed(request.newBuilder().url(httpURL).build())
+
+            val httpURL = request.url
+                .newBuilder()
+                .addQueryParameter("api_key", BuildConfig.ApiKey)
+                .build()
+
+            chain.proceed(
+                request.newBuilder()
+                    .url(httpURL)
+                    .build()
+            )
         }
 
-        okHttpClient.addInterceptor(authInterceptor).build()
+        okHttpClient
+            .addInterceptor(authInterceptor)
+            .build()
     }
 }

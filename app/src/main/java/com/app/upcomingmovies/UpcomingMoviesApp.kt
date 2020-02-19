@@ -15,7 +15,7 @@ class UpcomingMoviesApp : Application() {
 
         startKoin {
             androidContext(this@UpcomingMoviesApp)
-            modules(networkModule, viewModelModule)
+            modules(listOf(networkModule, viewModelModule))
         }
 
         if (BuildConfig.DEBUG) {
