@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val networkModule = module {
-    single { Repository(get()) }
+    single { Repository(get(), get()) }
 
     single {
         Retrofit.Builder()
