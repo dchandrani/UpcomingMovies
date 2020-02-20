@@ -5,5 +5,9 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val databaseModule = module {
-    single { MoviesDatabase.getDatabase(androidContext()).getMoviesDao() }
+    factory { MoviesDatabase.getDatabase(androidContext()) }
+
+    single { get<MoviesDatabase>().getMoviesDao() }
+
+    single { get<MoviesDatabase>().getMovieImagesDao() }
 }

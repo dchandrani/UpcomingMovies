@@ -10,7 +10,7 @@ import com.app.upcomingmovies.response.Response
 import com.app.upcomingmovies.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class MovieDetailViewModel(movieId: Long, private val repository: Repository) : BaseViewModel() {
+class MovieDetailViewModel(private val repository: Repository) : BaseViewModel() {
     private val _movieImages = MutableLiveData<List<MovieImage>>()
     private val _movie = MutableLiveData<Movie>()
 
@@ -20,11 +20,7 @@ class MovieDetailViewModel(movieId: Long, private val repository: Repository) : 
     val movieImages: LiveData<List<MovieImage>>
         get() = _movieImages
 
-    init {
-        fetchImages(movieId)
-    }
-
-    private fun fetchImages(movieId: Long) {
+    fun fetchImages(movieId: Long) {
         _isLoading.value = true
 
         viewModelScope.launch {

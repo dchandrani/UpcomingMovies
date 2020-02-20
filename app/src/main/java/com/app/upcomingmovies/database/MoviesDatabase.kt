@@ -5,11 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.app.upcomingmovies.response.Movie
+import com.app.upcomingmovies.response.MovieImage
 
-@Database(entities = [Movie::class], version = 1, exportSchema = false)
+@Database(entities = [Movie::class, MovieImage::class], version = 1, exportSchema = false)
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun getMoviesDao(): MoviesDao
+
+    abstract fun getMovieImagesDao(): MovieImagesDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
