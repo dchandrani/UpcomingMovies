@@ -11,11 +11,11 @@ import com.app.upcomingmovies.utils.gone
 import com.app.upcomingmovies.utils.toast
 import com.app.upcomingmovies.utils.visible
 import kotlinx.android.synthetic.main.movie_detail_fragment.*
-import org.koin.android.ext.android.getKoin
 import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieDetailFragment : BaseFragment() {
-    private lateinit var viewModel: MovieDetailViewModel
+    private val viewModel: MovieDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,12 +30,10 @@ class MovieDetailFragment : BaseFragment() {
 
         arguments?.run {
             with(MovieDetailFragmentArgs.fromBundle(this)) {
-                getKoin().setProperty("id", id)
+                viewModel.fetchImages(id)
                 setTitle(titile)
             }
         }
-
-        viewModel = getViewModel()
 
         viewModel.error.observe(this, Observer {
             requireContext().toast(it)

@@ -2,6 +2,7 @@ package com.app.upcomingmovies
 
 import android.annotation.SuppressLint
 import android.app.Application
+import com.app.upcomingmovies.di.databaseModule
 import com.app.upcomingmovies.di.networkModule
 import com.app.upcomingmovies.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -15,7 +16,7 @@ class UpcomingMoviesApp : Application() {
 
         startKoin {
             androidContext(this@UpcomingMoviesApp)
-            modules(listOf(networkModule, viewModelModule))
+            modules(listOf(networkModule, viewModelModule, databaseModule))
         }
 
         if (BuildConfig.DEBUG) {

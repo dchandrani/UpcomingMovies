@@ -1,14 +1,18 @@
 package com.app.upcomingmovies.response
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponse(val results: List<Movie>)
 
+@Entity(tableName = "movie")
 data class Movie(
-    val id: Long,
+    @PrimaryKey val id: Long,
     val title: String,
-    @SerializedName("poster_path") val posterPath: String,
-    @SerializedName("release_date") val releaseData: String,
+    @ColumnInfo(name = "poster_path") @SerializedName("poster_path") val posterPath: String,
+    @ColumnInfo(name = "release_date") @SerializedName("release_date") val releaseData: String,
     val adult: Boolean,
     val overview: String
 ) {
