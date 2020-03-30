@@ -21,7 +21,7 @@ class MovieDetailViewModel(private val repository: Repository) : BaseViewModel()
         get() = _movieImages
 
     fun fetchImages(movieId: Long) {
-        _isLoading.value = true
+        isLoading.value = true
 
         viewModelScope.launch {
             when (val response = repository.getImagesByMovieId(movieId)) {
@@ -30,8 +30,8 @@ class MovieDetailViewModel(private val repository: Repository) : BaseViewModel()
                     fetchMovieDetail(movieId)
                 }
                 is Response.Error -> {
-                    _error.value = response.message
-                    _isLoading.value = false
+                    error.value = response.message
+                    isLoading.value = false
                 }
             }
         }
@@ -40,8 +40,8 @@ class MovieDetailViewModel(private val repository: Repository) : BaseViewModel()
     private suspend fun fetchMovieDetail(movieId: Long) {
         when (val response = repository.getMovieById(movieId)) {
             is Response.Success -> _movie.value = response.movies
-            is Response.Error -> _error.value = response.message
+            is Response.Error -> error.value = response.message
         }
-        _isLoading.value = false
+        isLoading.value = false
     }
 }

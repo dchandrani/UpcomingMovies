@@ -16,7 +16,7 @@ class MovieListViewModel(private val repository: Repository) : BaseViewModel() {
         get() = _movies
 
     init {
-        _isLoading.value = true
+        isLoading.value = true
 
         fetchMovies()
     }
@@ -25,10 +25,10 @@ class MovieListViewModel(private val repository: Repository) : BaseViewModel() {
         viewModelScope.launch {
             when (val response = repository.getMovies()) {
                 is Response.Success -> _movies.value = response.movies
-                is Response.Error -> _error.value = response.message
+                is Response.Error -> error.value = response.message
             }
 
-            _isLoading.value = false
+            isLoading.value = false
         }
     }
 }
