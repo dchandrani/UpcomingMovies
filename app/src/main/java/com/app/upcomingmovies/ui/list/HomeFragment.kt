@@ -14,7 +14,7 @@ import com.app.upcomingmovies.response.Movie
 import com.app.upcomingmovies.ui.base.BaseFragment
 import com.app.upcomingmovies.utils.toast
 import kotlinx.android.synthetic.main.home_fragment.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment() {
     private val mMovieList = mutableListOf<Movie>()
@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment() {
             adapter = mMoviesAdapter
         }
 
-        viewModel.movies.observe(this, Observer {
+        viewModel.movies.observe(viewLifecycleOwner, Observer {
             with(mMovieList) {
                 clear()
                 addAll(it)
@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment() {
             }
         })
 
-        viewModel.isLoading.observe(this, Observer {
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = if (it) View.VISIBLE else View.GONE
         })
 

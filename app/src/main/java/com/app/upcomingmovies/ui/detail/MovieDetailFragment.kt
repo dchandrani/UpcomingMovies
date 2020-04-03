@@ -11,8 +11,7 @@ import com.app.upcomingmovies.utils.gone
 import com.app.upcomingmovies.utils.toast
 import com.app.upcomingmovies.utils.visible
 import kotlinx.android.synthetic.main.movie_detail_fragment.*
-import org.koin.android.viewmodel.ext.android.getViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailFragment : BaseFragment() {
     private val viewModel: MovieDetailViewModel by viewModel()
@@ -35,16 +34,16 @@ class MovieDetailFragment : BaseFragment() {
             }
         }
 
-        viewModel.error.observe(this, Observer {
+        viewModel.error.observe(viewLifecycleOwner, Observer {
             requireContext().toast(it)
         })
 
-        viewModel.isLoading.observe(this, Observer {
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = if (it) View.VISIBLE else View.GONE
             container.visibility = if (it) View.GONE else View.VISIBLE
         })
 
-        viewModel.movieImages.observe(this, Observer {
+        viewModel.movieImages.observe(viewLifecycleOwner, Observer {
             imageSlider.adapter = ImageSliderAdapter(it)
             if (it.size > 1) {
                 pageIndicator.visible()
@@ -54,7 +53,7 @@ class MovieDetailFragment : BaseFragment() {
             }
         })
 
-        viewModel.movie.observe(this, Observer {
+        viewModel.movie.observe(viewLifecycleOwner, Observer {
             it.run {
                 tv_title.text = title
                 tv_overview.text = overview
